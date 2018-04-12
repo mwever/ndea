@@ -1,0 +1,67 @@
+plugins {
+  id 'java'
+  id 'eclipse-wtp'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+    	java {
+    		srcDir 'test'
+    	}
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+dependencies {
+	//compile project(':JAICore'), project(':WorkAround') //project(':MOEAFramework'), project(':weka'), 
+	compile name : "JAICore"
+	
+	compile 'org.apache.commons:commons-lang3:3.4'
+	
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+	compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
+	
+	// https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/ensemblesOfNestedDichotomies
+	compile group: 'nz.ac.waikato.cms.weka', name: 'ensemblesOfNestedDichotomies', version: '1.0.6'
+	
+	
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	compile group: 'com.google.guava', name: 'guava', version: '23.0'
+	
+	compile group: 'org.moeaframework', name: 'moeaframework', version: '2.12'
+	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-dev', version: '3.9.1'
+	
+	// Logging
+	compile 'org.slf4j:slf4j-api:1.7.13'
+	runtime 'org.slf4j:slf4j-log4j12:1.7.13', 'log4j:log4j:1.2.17'
+}
+
+repositories {
+    mavenCentral()
+	mavenLocal()
+	maven {
+        url "http://clojars.org/repo/"
+    }
+	flatDir {
+     	dirs 'lib'
+   	}
+}
