@@ -32,7 +32,6 @@ artifacts {
 }
 
 dependencies {
-	//compile project(':JAICore'), project(':WorkAround') //project(':MOEAFramework'), project(':weka'), 
 	compile name : "JAICore"
 	
 	compile 'org.apache.commons:commons-lang3:3.4'
