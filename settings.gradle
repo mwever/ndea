@@ -1,2 +1,1 @@
-//includeFlat 'MOEAFramework', 'JAICore', 'weka', 'WorkAround'
 rootProject.name = 'ndea'
